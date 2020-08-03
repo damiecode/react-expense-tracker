@@ -9,7 +9,7 @@ class Login extends Component {
       username: '',
       email: '',
       password: '',
-      errors: ''
+      errors: '',
      };
   }
   
@@ -60,41 +60,70 @@ class Login extends Component {
   render() {
     const {username, email, password} = this.state
     return (
-      <div>
-        <h1>Log In</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            placeholder="username"
-            type="text"
-            name="username"
-            value={username}
-            onChange={this.handleChange}
-          />
-          <input
-            placeholder="email"
-            type="text"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          />
-          <input
-            placeholder="password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />          
-          <button placeholder="submit" type="submit">
-            Log In
-          </button>        
-          <div>
-           or <Link to='/signup'>sign up</Link>
+      <div class="limiter">
+      	<div class="container-login100">
+			    <div class="wrap-login100">
+            <form onSubmit={this.handleSubmit} class="login100-form validate-form" >
+              <span class="login100-form-title">
+                Login
+              </span>
+              <div class="wrap-input100 validate-input">
+                <input 
+                  placeholder="username"
+                  type="text"
+                  name="username"
+                  value={username}
+                  onChange={this.handleChange}
+                  />
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                <input 
+                  placeholder="email"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                  />
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                <input
+                  placeholder="password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />    
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+              </div>      
+              <div class="container-login100-form-btn">
+                <button class="login100-form-btn">
+                  Login
+                </button>
+              </div>    
+              or 
+              <div class="text-center p-t-136">
+                <Link to='/signup'>sign up
+                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                </Link>
+              </div>
+            </form>
+            <div>
+              {
+                this.state.errors ? this.handleErrors() : null
+              }
+            </div>
           </div>
-        </form>
-        <div>
-          {
-            this.state.errors ? this.handleErrors() : null
-          }
         </div>
       </div>
     );

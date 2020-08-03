@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { createUser } from '../../redux/actions';
+import { createNewUser } from '../../redux/actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../../assets/css/main.css';
+import '../../assets/css/utils.css';
 
 class Signup extends Component {
 	constructor(props) {
@@ -37,13 +40,13 @@ class Signup extends Component {
 	onSubmitHandler = async (e) => {
 		e.preventDefault();
 		const {
-			username, email, password,
+			username, email, password, password_confirmation
 		} = this.state;
 
 		const { newUser, user } = this.props;
 
 		await newUser({
-			username, email, password,
+			username, email, password, password_confirmation
     });
 
 		if (user.isLogin === true) {
@@ -61,15 +64,85 @@ class Signup extends Component {
 render() {
   const { message } = this.state;
 	return (
-		<form onSubmit={this.onSubmitHandler} >
-			<h1>{message}</h1>
-		  <input onChange={this.handleUsernameChange} type="text" required />
-			<input onChange={this.handleEmailChange} type="email" required />
-			<input onChange={this.handlePasswordChange} type="password" required />
-			<input onChange={this.handlePasswordChange} type="password" required />
-      <Link to="/login">login</Link>
-			<button type="submit">Create Account</button>
-		</form>
+		<div class="limiter">
+      	<div class="container-login100">
+			    <div class="wrap-login100">
+            <form onSubmit={this.onSubmitHandler} class="login100-form validate-form" >
+              <span class="login100-form-title">
+                Login
+              </span>
+							<h1>{message}</h1>
+              <div class="wrap-input100 validate-input">
+                <input 
+                  placeholder="username"
+                  type="text"
+                  name="username"
+                  onChange={this.handleUsernameChange}
+									required
+                  />
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                <input 
+                  placeholder="email"
+                  type="text"
+                  name="email"
+                  onChange={this.handleEmailChange}
+									required
+                  />
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                <input
+                  placeholder="password"
+                  type="password"
+                  name="password"
+                  onChange={this.handlePasswordChange}
+									required
+                />    
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+              </div>
+							<div class="wrap-input100 validate-input" data-validate = "Password is required">
+                <input
+                  placeholder="confirm_password"
+                  type="password"
+                  name="password_confirmation"
+                  onChange={this.handlePasswordChange}
+									required
+                />    
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+              </div>        
+              <div class="container-login100-form-btn">
+                <button class="login100-form-btn">
+                  Create Account
+                </button>
+              </div>    
+              <div class="text-center p-t-136">
+                <Link to="/login">login
+									<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+								</Link>
+              </div>
+            </form>
+            <div>
+              {
+                this.state.errors ? this.handleErrors() : null
+              }
+            </div>
+          </div>
+        </div>
+      </div>
 		);
 	}
 }
@@ -79,7 +152,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	newUser: estate => dispatch(createUser(estate)),
+	newUser: estate => dispatch(createNewUser(estate)),
 });
 
 Signup.propTypes = {

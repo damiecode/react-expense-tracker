@@ -1,10 +1,10 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react';
+import '../App.css';
 import axios from 'axios'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import { Button, Container } from 'reactstrap'
+// import { Button, Container } from 'reactstrap'
 import Home from './Home/home';
-import Login from './registrations/login';
+// import Login from './registrations/login';
 import Signup from './registrations/signUp';
 
 class App extends Component {
@@ -57,12 +57,12 @@ class App extends Component {
               <Home {...props} loggedInStatus={this.state.isLoggedIn}/>
               )}
             />
-            <Route 
+            {/* <Route 
               exact path='/login' 
               render={props => (
               <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
               )}
-            />
+            /> */}
             <Route 
               exact path='/signup' 
               render={props => (
