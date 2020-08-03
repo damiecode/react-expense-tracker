@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { createNewUser } from '../../redux/actions';
+import { createNewUser } from '../../redux/actions/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../assets/css/main.css';
 import '../../assets/css/utils.css';
+import img from '../../assets/images/img-01.png';
 
 class Signup extends Component {
 	constructor(props) {
@@ -67,9 +68,12 @@ render() {
 		<div class="limiter">
       	<div class="container-login100">
 			    <div class="wrap-login100">
+						<div class="login100-pic js-tilt" data-tilt>
+							<img src={img} alt="IMG" />
+						</div>
             <form onSubmit={this.onSubmitHandler} class="login100-form validate-form" >
               <span class="login100-form-title">
-                Login
+                Sign Up
               </span>
 							<h1>{message}</h1>
               <div class="wrap-input100 validate-input">
@@ -82,7 +86,7 @@ render() {
                   />
                 <span class="focus-input100"></span>
                 <span class="symbol-input100">
-                  <i class="fa fa-envelope" aria-hidden="true"></i>
+									<FontAwesomeIcon icon={["fas", "coffee"]} />
                 </span>
               </div>
               <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
@@ -95,7 +99,7 @@ render() {
                   />
                 <span class="focus-input100"></span>
                 <span class="symbol-input100">
-                  <i class="fa fa-envelope" aria-hidden="true"></i>
+									<FontAwesomeIcon icon="envelope" />
                 </span>
               </div>
               <div class="wrap-input100 validate-input" data-validate = "Password is required">

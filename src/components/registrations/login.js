@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import ShowErrors from '../errors';
+import Loading from '../loading';
+import { userLogin } from '../../redux/actions/index';
+import '../../assets/css/main.css';
+import '../../assets/css/utils.css';
+import img from '../../assets/images/img-01.png';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      username: '',
-      email: '',
-      password: '',
+      loginCreds: '',
       errors: '',
      };
+
+     this.selectForm = React.createRef()
   }
   
   handleChange = (event) => {
@@ -21,31 +28,27 @@ class Login extends Component {
   };
   
   handleSubmit = (event) => {
-    event.preventDefault()
-    const {username, email, password} = this.state
-    let user = {
-      username: username,
-      email: email,
+    const { userLogin } = this.props;
+    const { loginCreds, password} = this.state
+    const user = {
+      username: loginCreds.toLowerCase(),
+      email: loginCreds.toLowerCase(),
       password: password
     }
-    
-    axios.post('http://localhost:3000/login', {user}, {withCredentials: true})
-      .then(response => {
-        if (response.data.logged_in) {
-          this.props.handleLogin(response.data)
-          this.redirect()
-        } else {
-          this.setState({
-            errors: response.data.errors
-          })
-        }
-      })
-      .catch(error => console.log('api errors:', error))
-    };
-    redirect = () => {
-      this.props.history.push('/')
-    }
-    
+
+    event.preventDefault()
+    userLogin(user);
+    this.reset();
+  }
+
+  reset = () => {
+    this.selectForm.current.scrollIntoView({ behaviour: 'smooth' });
+    this.setState({
+      loginCreds: '',
+      password: '',
+    });
+  }
+
     handleErrors = () => {
     return (
       <div>
@@ -58,34 +61,32 @@ class Login extends Component {
     )
   }
   render() {
-    const {username, email, password} = this.state
-    return (
+    const { loginCreds, password} = this.state
+    const { status } = this.props;
+    const { isLoading, errors, form} = status;
+    
+    const renderMain = isLoading 
+    ? (
+      <Loading />
+      )
+      : (
       <div class="limiter">
       	<div class="container-login100">
 			    <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src={img} alt="IMG" />
+            </div>
             <form onSubmit={this.handleSubmit} class="login100-form validate-form" >
               <span class="login100-form-title">
                 Login
+                {form === 'login' && <ShowErrors errors={errors} />}
               </span>
               <div class="wrap-input100 validate-input">
                 <input 
-                  placeholder="username"
+                  placeholder="Username or Email"
                   type="text"
                   name="username"
-                  value={username}
-                  onChange={this.handleChange}
-                  />
-                <span class="focus-input100"></span>
-                <span class="symbol-input100">
-                  <i class="fa fa-envelope" aria-hidden="true"></i>
-                </span>
-              </div>
-              <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                <input 
-                  placeholder="email"
-                  type="text"
-                  name="email"
-                  value={email}
+                  value={loginCreds}
                   onChange={this.handleChange}
                   />
                 <span class="focus-input100"></span>
@@ -113,7 +114,7 @@ class Login extends Component {
               </div>    
               or 
               <div class="text-center p-t-136">
-                <Link to='/signup'>sign up
+                <Link to='/signup'>Not signed up yet?
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                 </Link>
               </div>
@@ -127,7 +128,30 @@ class Login extends Component {
         </div>
       </div>
     );
+    const { user } = this.props;
+    const { logged_in } = user;
+    const { redirectTo } = this.props;
+    return !logged_in ? renderMain : redirectTo('/expenses');
   }
 }
 
-export default Login;
+Login.propTypes = {
+  user: PropTypes.instanceOf(Object).isRequired,
+  status: PropTypes.instanceOf(Object).isRequired,
+  userLogin: PropTypes.func.isRequired,
+  redirectTo: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  user: state.user,
+  status: state.status,
+});
+
+const mapDispatchToProps = dispatch => ({
+  userLogin: user => {
+    dispatch(userLogin(user));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
