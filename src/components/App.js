@@ -1,79 +1,67 @@
-import React, { Component } from 'react';
-import '../App.css';
-import axios from 'axios'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
-// import { Button, Container } from 'reactstrap'
-import Home from './Home/home';
-// import Login from './registrations/login';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect, Switch, Route } from 'react-router-dom';
+import Login from './registrations/login';
 import Signup from './registrations/signUp';
+import { userLoggedIn, userLogout } from '../redux/actions/index';
+import '../App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      isLoggedIn: false,
-      user: {}
-     };
-  }
-  
-  componentDidMount() {
-    this.loginStatus()
-  }  
-  
-  loginStatus = () => {
-    axios.get('http://localhost:3000/logged_in', {withCredentials: true})
-    .then(response => {
-      if (response.data.logged_in) {
-        this.handleLogin(response)
-      } else {
-        this.handleLogout()
-      }
-    })
-    .catch(error => console.log('api errors:', error))
-  }
-  
-  handleLogin = (data) => {
-    this.setState({
-      isLoggedIn: true,
-      user: data.user
-    })
-  }
-  
-  handleLogout = () => {
-    this.setState({
-    isLoggedIn: false,
-    user: {}
-    })
-  }
-  
-  render() {
-    return (
-      <div>
-        <BrowserRouter>
-          <Switch>
-            <Route 
-              exact path='/' 
-              render={props => (
-              <Home {...props} loggedInStatus={this.state.isLoggedIn}/>
-              )}
-            />
-            {/* <Route 
-              exact path='/login' 
-              render={props => (
-              <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
-              )}
-            /> */}
-            <Route 
-              exact path='/signup' 
-              render={props => (
-              <Signup {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
-              )}
-            />
-          </Switch>
-        </BrowserRouter>
-      </div>
-    );
-  }
-}
+const App = ({
+  user, userLoggedIn, userLogout,
+}) => {
+  const redirectTo = path => (
+    <Redirect push to={{ pathname: path }} />
+  );
 
-export default App;
+  useEffect(() => {
+    userLoggedIn();
+  }, [userLoggedIn]);
+
+  /* eslint-disable react/jsx-props-no-spreading */
+  return (
+    <div className="App">
+      <header className="appHeader">
+        <div className="font-header">Expense Tracker</div>
+        <div className="capitalize">
+          <span>Hi </span>
+          {user.username}
+          <button title="logout" className="bareBtn" type="button" onClick={userLogout}>
+            <i className="fas fa-sign-out-alt" />
+          </button>
+        </div>
+      </header>
+      <main className="height-main-hidden">
+        <Switch>
+          <Route exact path="/login" render={() => <Login redirectTo={redirectTo} />} />
+          <Route exact path="/register" component={Signup} />
+          {/* <Route exact path="/more" render={() =>
+          <MorePage userLogout={userLogout} redirectTo={redirectTo} />} /> */}
+          <Route exact path="/" render={() => <Login redirectTo={redirectTo} />} />
+        </Switch>
+      </main>
+    </div>
+  );
+  /* eslint-enable react/jsx-props-no-spreading */
+};
+
+App.propTypes = {
+  user: PropTypes.instanceOf(Object).isRequired,
+  userLoggedIn: PropTypes.func.isRequired,
+  userLogout: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+  userLoggedIn: () => {
+    dispatch(userLoggedIn());
+  },
+  userLogout: () => {
+    dispatch(userLogout());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

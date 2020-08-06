@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import rootReducer from './redux/reducers/index';
@@ -18,10 +19,28 @@ const initialState = {
 	},
 };
 
-const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
+const enhancers = [];
+const middleware = thunk;
+
+if (process.env.NODE_ENV === 'development') {
+  const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
+
+  if (typeof devToolsExtension === 'function') {
+    enhancers.push(devToolsExtension());
+  }
+}
+
+const composedEnhancers = compose(
+  applyMiddleware(middleware),
+  ...enhancers,
+);
+
+const store = createStore(rootReducer, initialState, composedEnhancers);
 ReactDOM.render(
-	<Provider store={store}>
-		<App />
-	</Provider>,
+	<Router>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Router>,
 	document.getElementById('root'),
 );

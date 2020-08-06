@@ -8,6 +8,8 @@ const FETCH_REQUEST_FAILURE = 'FETCH_REQUEST_FAILURE';
 const USER_CREATE = 'USER_CREATE';
 const USER_LOGIN = 'USER_LOGIN';
 const USER_LOGOUT = 'USER_LOGOUT';
+const FETCH_EXPENSES_LIST = 'FETCH_EXPENSE_LIST';
+const FETCH_EXPENSE = 'FETCH_EXPENSE';
 
 const fetchRequest = () => ({
   type: FETCH_REQUEST,
@@ -37,6 +39,15 @@ const userLoginSuccess = (user, loggedIn) => ({
 const userLogoutSuccess = user => ({
   type: USER_LOGOUT,
   response: { ...user, logged_in: false },
+});
+
+const fetchExpenseListSuccess = expenses => ({
+  type: FETCH_EXPENSES_LIST,
+  response: expenses,
+});
+const fetchExpenseSuccess = expense => ({
+  type: FETCH_EXPENSE,
+  response: expense,
 });
 
 // Register User
@@ -107,8 +118,77 @@ const userLogout = () => dispatch => {
     });
 };
 
+const fetchExpenses = () => dispatch => {
+  dispatch(fetchRequest());
+  axios.get(`${URL}expenses`, { withCredentials: true })
+    .then(response => {
+      dispatch(fetchRequestSuccess('Showing all expenses for current User...'));
+      dispatch(fetchExpenseListSuccess(response.data.expense));
+    })
+    .catch(error => {
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg));
+    });
+};
+// Grab one expense from API Database
+const fetchExpense = expenseID => dispatch => {
+  dispatch(fetchRequest());
+  axios.get(`${URL}expenses/${expenseID}`, { withCredentials: true })
+    .then(response => {
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchExpenseSuccess(response.data.selected_expense));
+    })
+    .catch(error => {
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg));
+    });
+};
+// Expense requests
+const addExpense = expense => dispatch => {
+  dispatch(fetchRequest());
+  axios.post(`${URL}expenses`, { expense }, { withCredentials: true })
+    .then(response => {
+      const newExpenseList = response.data.expense;
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchExpenseListSuccess(newExpenseList));
+    })
+    .catch(error => {
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'expenseForm'));
+    });
+};
+const updateExpense = (expenseID, expense) => dispatch => {
+  dispatch(fetchRequest());
+  axios.patch(`${URL}expenses/${expenseID}`, { expense }, { withCredentials: true })
+    .then(response => {
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchExpenseSuccess(response.data.selected_expense));
+    })
+    .catch(error => {
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'modalForm'));
+    });
+};
+const removeExpense = expense => dispatch => {
+  dispatch(fetchRequest());
+  axios.delete(`${URL}expenses/${expense.id}`, { withCredentials: true })
+    .then(response => {
+      const newExpenseList = response.data.expense;
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchExpenseListSuccess(newExpenseList));
+    })
+    .catch(error => {
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg));
+    });
+};
+
 export {
   USER_LOGIN, USER_LOGOUT, USER_CREATE,
-  FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
+  FETCH_REQUEST, FETCH_REQUEST_SUCCESS, 
+  FETCH_REQUEST_FAILURE, FETCH_EXPENSE, FETCH_EXPENSES_LIST,
   createNewUser, userLogin, userLoggedIn, userLogout,
- }
+  fetchExpenseListSuccess, fetchExpenseSuccess,
+  fetchExpenses, fetchExpense, addExpense, removeExpense,
+  updateExpense,
+};
