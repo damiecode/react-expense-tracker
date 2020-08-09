@@ -1,24 +1,47 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import '../styles/index.css';
+import { userLogout } from '../actions/Index';
 
-const Header = () => (
-  <header className="header">
-    <div className="content-container">
-      <div className="header__content">
-        <Link className="header__title" to="/dashboard">
-          <h1>Expense Tracker</h1>
-        </Link>
-        <button
-          className="button button--link"
-          type="button"
-        >
-          Logout
-        </button>
+const Header = ({ user, userLogout, redirectTo }) => {
+  const renderMain = (
+    <header className="header">
+      <div className="content-container">
+        <div className="header__content">
+          <Link className="header__title" to="/dashboard">
+            <h1>Expense Tracker</h1>
+          </Link>
+          <button
+            onClick={userLogout}
+            className="button button--link"
+            type="button"
+          >
+            Logout
+          </button>
+        </div>
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
 
-export default connect()(Header);
+  const { logged_in } = user;
+  return logged_in ? renderMain : redirectTo('/login');
+};
+
+Header.propTypes = {
+  userLogout: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+  userLogout: () => {
+    dispatch(userLogout());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

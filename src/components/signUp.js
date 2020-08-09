@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { createUser } from '../actions/auth';
+import { createNewUser } from '../actions/Index';
 import Loading from './loading';
 import '../styles/main.css';
 import '../styles/utils.css';
@@ -25,9 +25,9 @@ class Signup extends Component {
   }
 
   onSubmitHandler(e) {
-    const { createUser } = this.props;
+    const { createNewUser } = this.props;
     e.preventDefault();
-    createUser(this.state);
+    createNewUser(this.state);
     this.reset();
   }
 
@@ -150,13 +150,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createUser: user => {
-    dispatch(createUser(user));
+  createNewUser: user => {
+    dispatch(createNewUser(user));
   },
 });
 
 Signup.propTypes = {
-  createUser: PropTypes.func.isRequired,
+  createNewUser: PropTypes.func.isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
 };
 

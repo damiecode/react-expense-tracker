@@ -1,16 +1,19 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+import { userLoggedIn } from '../actions/Index';
 
 export const PublicRoute = ({
-  isAuthenticated,
+  userLoggedIn,
   component: Component,
   ...rest
 }) => (
   <Route
     {...rest}
     component={props => (
-      isAuthenticated ? (
+      userLoggedIn ? (
         <Redirect to="/dashboard" />
       ) : (
         <Component {...props} />
@@ -19,8 +22,19 @@ export const PublicRoute = ({
   />
 );
 
+PublicRoute.propTypes = {
+  userLoggedIn: PropTypes.func.isRequired,
+  component: PropTypes.instanceOf(Object).isRequired,
+};
+
 const mapStateToProps = state => ({
-  isAuthenticated: !!state.auth.uid,
+  user: state.user,
 });
 
-export default connect(mapStateToProps)(PublicRoute);
+const mapDispatchToProps = dispatch => ({
+  userLoggedIn: () => {
+    dispatch(userLoggedIn());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PublicRoute);

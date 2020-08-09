@@ -102,7 +102,6 @@ class Login extends Component {
                     Login
                   </button>
                 </div>
-                or
                 <div className="text-center p-t-136">
                   <Link to="/signup">
                     Not signed up yet?

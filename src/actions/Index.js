@@ -51,7 +51,7 @@ const fetchExpenseSuccess = expense => ({
 });
 
 // Register User
-const registerNewUser = user => dispatch => {
+const createNewUser = user => dispatch => {
   dispatch(fetchRequest());
   axios.post(`${URL}registrations`, { user }, { withCredentials: true })
     .then(response => {
@@ -188,6 +188,6 @@ export {
   FETCH_EXPENSELIST, FETCH_EXPENSE,
   USER_LOGIN, USER_LOGOUT, USER_REGISTER,
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
-  registerNewUser, userLogin, userLoggedIn, userLogout,
+  createNewUser, userLogin, userLoggedIn, userLogout,
   fetchExpenses, fetchExpense, addExpense, removeExpense, updateExpense,
 };
