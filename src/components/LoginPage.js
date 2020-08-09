@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loading from './loading';
-import { loginUser } from '../actions/auth';
+import { userLogin } from '../actions/Index';
 import '../styles/main.css';
 import '../styles/utils.css';
 import img from '../img-01.png';
@@ -30,7 +30,7 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-    const { loginUser } = this.props;
+    const { userLogin } = this.props;
     const { loginCreds, password } = this.state;
     const user = {
       username: loginCreds.toLowerCase(),
@@ -39,7 +39,7 @@ class Login extends Component {
     };
 
     event.preventDefault();
-    loginUser(user);
+    userLogin(user);
     this.reset();
   }
 
@@ -120,7 +120,7 @@ class Login extends Component {
 
 Login.propTypes = {
   status: PropTypes.instanceOf(Object).isRequired,
-  loginUser: PropTypes.func.isRequired,
+  userLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -129,8 +129,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loginUser: user => {
-    dispatch(loginUser(user));
+  userLogin: user => {
+    dispatch(userLogin(user));
   },
 });
 
