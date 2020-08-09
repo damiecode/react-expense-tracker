@@ -20,7 +20,7 @@ class Signup extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onSubmitHandler = this.onSubmitHandler.bind(this);
     this.selectForm = React.createRef();
   }
 
