@@ -20,7 +20,7 @@ export const ExpensesSummary = ({ expenseCount, expensesTotal }) => {
           {' '}
           {expenseWord}
           {' '}
-          totalling
+          totaling
           {' '}
           <span>{formattedExpensesTotal}</span>
         </h1>

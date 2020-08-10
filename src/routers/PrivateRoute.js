@@ -26,8 +26,12 @@ export const PrivateRoute = ({
   />
 );
 
+PrivateRoute.defaultProps = {
+  userLoggedIn: () => {},
+};
+
 PrivateRoute.propTypes = {
-  userLoggedIn: PropTypes.func.isRequired,
+  userLoggedIn: PropTypes.func,
   component: PropTypes.instanceOf(Object).isRequired,
 };
 

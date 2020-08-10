@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import '../styles/index.css';
 import { userLogout } from '../actions/Index';
 
-const Header = ({ user, userLogout, redirectTo }) => {
+const Header = ({ user, userLogout }) => {
   const renderMain = (
     <header className="header">
       <div className="content-container">
@@ -25,12 +25,11 @@ const Header = ({ user, userLogout, redirectTo }) => {
       </div>
     </header>
   );
-
-  const { logged_in } = user;
-  return logged_in ? renderMain : redirectTo('/login');
+  return renderMain;
 };
 
 Header.propTypes = {
+  user: PropTypes.instanceOf(Object).isRequired,
   userLogout: PropTypes.func.isRequired,
 };
 

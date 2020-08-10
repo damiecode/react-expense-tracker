@@ -14,7 +14,7 @@ export const PublicRoute = ({
     {...rest}
     component={props => (
       userLoggedIn ? (
-        <Redirect to="/dashboard" />
+        <Redirect to="/dashboard" exact />
       ) : (
         <Component {...props} />
       )
@@ -22,8 +22,12 @@ export const PublicRoute = ({
   />
 );
 
+PublicRoute.defaultProps = {
+  userLoggedIn: () => {},
+};
+
 PublicRoute.propTypes = {
-  userLoggedIn: PropTypes.func.isRequired,
+  userLoggedIn: PropTypes.func,
   component: PropTypes.instanceOf(Object).isRequired,
 };
 

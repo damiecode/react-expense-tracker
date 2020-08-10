@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { createNewUser } from '../actions/Index';
 import Loading from './loading';
+import ShowErrors from './errors';
 import '../styles/main.css';
 import '../styles/utils.css';
 import img from '../img-01.png';
@@ -52,7 +53,7 @@ class Signup extends Component {
       username, email, password, password_confirmation,
     } = this.state;
     const { status } = this.props;
-    const { isLoading, form } = status;
+    const { isLoading, errors, form } = status;
 
     const renderMain = isLoading
       ? (
@@ -68,6 +69,7 @@ class Signup extends Component {
               <form onSubmit={this.onSubmitHandler} ref={this.selectForm} className="login100-form validate-form">
                 <span className="login100-form-title">
                   Sign Up
+                  {form === 'registrationForm' && <ShowErrors errors={errors} />}
                 </span>
                 <div className="wrap-input100 validate-input">
                   <input
