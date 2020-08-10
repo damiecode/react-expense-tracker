@@ -35,17 +35,13 @@ Web-based Mobile Application using a [custom built API](https://github.com/damie
 
 Grab a clone of [this repository](https://github.com/damiecode/react-expense-tracker) from Github
 
-### [Setting up Back-End](https://github.com/Aaron-RN/ROR-TrackingApp-API/tree/models-controllers)
-
-In order for this application to work you will also need to setup your back-end server. You can do so following this readme guide [here](https://github.com/Aaron-RN/ROR-TrackingApp-API/tree/models-controllers).
-
 ### Setting up Front-End to Back-End connection
 
 After you have successfully setup your back-end, you will need to change the URL the front-end connects to.
 
 1. Navigate to your local directory of this cloned repository
 2. Navigate to the src/redux/actions folder and open the index.js file
-3. On line 3 where you would see const ```const URL = 'trackingapp-api.herokuapp.com/';```, replace ```'trackingapp-api.herokuapp.com/'``` with the url of your back-end server that you would have setup following the ["Setting up The Back-End"](https://github.com/Aaron-RN/ROR-TrackingApp-API/tree/models-controllers) Guide
+3. On line 3 where you would see const ```const URL = 'trackingapp-api.herokuapp.com/';```, replace ```'trackingapp-api.herokuapp.com/'``` with the url of your back-end server that you would have setup following the ["Setting up The Back-End"]
 
 ### Install Dependencies
 
@@ -74,9 +70,8 @@ $ npm run test
 - Run `npx stylelint "**/*.{css,scss}"` on the root of your project directory.
 
 ### Future Changes
-- Upon logging in redirect user to FoodList component page
 - Major reboot for desktop design
-- Add more information in the progress component page
+- Add more information in the chart component page
 - Add more functionality to the buttons in the more component page
 (Help document, Detailed Profile Page, Settings Menu, Ability to set a Goal)
 
