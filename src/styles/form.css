@@ -1,6 +1,6 @@
 .form {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .form > * {
@@ -8,6 +8,6 @@
 }
 
 .form__error {
-	font-style: italic;
-	margin: 0 0 1.6rem 0;
+  font-style: italic;
+  margin: 0 0 1.6rem 0;
 }
