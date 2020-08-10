@@ -9,8 +9,8 @@ Web-based Mobile Application using a [custom built API](https://github.com/damie
 - After Logging in a User is able to add various expenses to their tracker. 
 - The expenses added to the tracker will be saved and stored in the back-end server's database.  
 - The User is then able to track the number of expenses and amount they've used.
-### Track expenses on a weekly basis
-- The expenses are stored and sorted on a weekly basis.
+### Track expenses on a monthly basis
+- The expenses are stored and sorted on a monthly basis.
 ### Expenses Charts
 - A User can view expenses as a chart.
 
