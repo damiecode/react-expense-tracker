@@ -40,7 +40,7 @@ body {
 }
 .button{
   color:white;
-  background-color: #0471A6;
+  background-color: #c850c0;
   border : none;
   padding : 1.6rem;
   cursor: pointer;
@@ -71,7 +71,6 @@ body {
   display:flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: 1.2rem 0; */
 }
 .header__title{
   color: whitesmoke;
