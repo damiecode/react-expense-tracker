@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import '../styles/index.css';
 import { userLogout } from '../actions/Index';
 
-const Header = ({ user, userLogout }) => {
+const Header = ({ userLogout }) => {
   const renderMain = (
     <header className="header">
       <div className="content-container">

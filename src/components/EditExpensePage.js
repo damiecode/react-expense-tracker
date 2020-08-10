@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 
-const EditExpensePage = ({expense}) => (
+const EditExpensePage = ({ expense }) => (
   <div>
     <div className="page-header">
       <div className="content-container">

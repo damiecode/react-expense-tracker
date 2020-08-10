@@ -41,7 +41,7 @@ After you have successfully setup your back-end, you will need to change the URL
 
 1. Navigate to your local directory of this cloned repository
 2. Navigate to the src/redux/actions folder and open the index.js file
-3. On line 3 where you would see const ```const URL = 'trackingapp-api.herokuapp.com/';```, replace ```'trackingapp-api.herokuapp.com/'``` with the url of your back-end server that you would have setup following the ["Setting up The Back-End"]
+3. On line 3 where you would see const ```const URL = 'trackingapp-api.herokuapp.com/';```, replace ```'trackingapp-api.herokuapp.com/'``` with the url of your back-end server that you would have setup.
 
 ### Install Dependencies
 

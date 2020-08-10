@@ -12,7 +12,7 @@ const showErrors = ({ errors }) => {
     <div className="errors">
       {errors.map(error => errorDiv(error))}
     </div>
-  )
+  );
 };
 
 showErrors.propTypes = {
