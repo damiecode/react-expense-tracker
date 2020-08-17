@@ -66,7 +66,7 @@ class Signup extends Component {
               <div className="login100-pic js-tilt" data-tilt>
                 <img src={img} alt="IMG" />
               </div>
-              <form onSubmit={this.onSubmitHandler} ref={this.selectForm} className="login100-form validate-form">
+              <form ref={this.selectForm} onSubmit={this.onSubmitHandler} className="login100-form validate-form">
                 <span className="login100-form-title">
                   Sign Up
                   {form === 'registrationForm' && <ShowErrors errors={errors} />}
@@ -128,7 +128,7 @@ class Signup extends Component {
                   </span>
                 </div>
                 <div className="container-login100-form-btn">
-                  <button className="login100-form-btn" type="button">
+                  <button className="login100-form-btn" type="submit">
                     Create Account
                   </button>
                 </div>

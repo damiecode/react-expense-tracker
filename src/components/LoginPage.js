@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ShowErrors from './errors';
 import Loading from './loading';
 import { userLogin } from '../actions/Index';
 import '../styles/main.css';
@@ -54,7 +55,7 @@ class Login extends Component {
   render() {
     const { loginCreds, password } = this.state;
     const { status } = this.props;
-    const { isLoading, form } = status;
+    const { isLoading, errors, form } = status;
 
     const renderMain = isLoading
       ? (
@@ -67,9 +68,10 @@ class Login extends Component {
               <div className="login100-pic js-tilt" data-tilt>
                 <img src={img} alt="IMG" />
               </div>
-              <form onSubmit={this.handleSubmit} ref={this.selectForm} className="login100-form validate-form">
+              <form ref={this.selectForm} onSubmit={this.handleSubmit} className="login100-form validate-form">
                 <span className="login100-form-title">
                   Login
+                  {form === 'loginForm' && <ShowErrors errors={errors} />}
                 </span>
                 <div className="wrap-input100 validate-input">
                   <input
@@ -98,7 +100,7 @@ class Login extends Component {
                   </span>
                 </div>
                 <div className="container-login100-form-btn">
-                  <button className="login100-form-btn" type="button">
+                  <button className="login100-form-btn" type="submit">
                     Login
                   </button>
                 </div>
@@ -113,13 +115,19 @@ class Login extends Component {
           </div>
         </div>
       );
-    return renderMain;
+    const { user } = this.props;
+    /* eslint-disable camelcase */
+    const { logged_in } = user;
+    const { redirectTo } = this.props;
+    return !logged_in ? renderMain : redirectTo('/dashboard');
   }
 }
 
 Login.propTypes = {
+  user: PropTypes.instanceOf(Object).isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
   userLogin: PropTypes.func.isRequired,
+  redirectTo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
