@@ -16,7 +16,6 @@ import LoginPage from './components/LoginPage';
 import ChartPage from './components/ChartPage';
 import signUp from './components/signUp';
 import { userLoggedIn, userLogout } from './actions/Index';
-import './assets/css/App.css';
 
 const App = ({
   user, userLoggedIn, userLogout,
