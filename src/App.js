@@ -7,7 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import '../styles/index.css';
+import './styles/index.css';
 import ExpenseDashboardPage from './components/ExpenseDashboardPage';
 import AddExpensePage from './components/AddExpensePage';
 import EditExpensePage from './components/EditExpensePage';
