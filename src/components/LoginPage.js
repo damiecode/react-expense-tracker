@@ -105,7 +105,7 @@ class Login extends Component {
                   </button>
                 </div>
                 <div className="text-center p-t-136">
-                  <Link to="/signup">
+                  <Link to="/register">
                     Not signed up yet?
                     <i className="fas fa-long-arrow-right m-l-5" aria-hidden="true" />
                   </Link>
