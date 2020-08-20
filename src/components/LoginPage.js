@@ -77,9 +77,10 @@ class Login extends Component {
                   <input
                     placeholder="Username or Email"
                     type="text"
-                    name="username"
+                    name="loginCreds"
                     value={loginCreds}
                     onChange={this.handleChange}
+                    minLength="3"
                   />
                   <span className="focus-input100" />
                   <span className="symbol-input100">
