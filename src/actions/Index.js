@@ -131,6 +131,7 @@ const fetchExpenses = () => dispatch => {
       dispatch(fetchRequestFailure(errorMsg));
     });
 };
+
 // Grab one expense from API Database
 const fetchExpense = expenseID => dispatch => {
   dispatch(fetchRequest());

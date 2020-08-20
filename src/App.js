@@ -15,10 +15,10 @@ import NotFoundPage from './components/NotFoundPage';
 import LoginPage from './components/LoginPage';
 import ChartPage from './components/ChartPage';
 import signUp from './components/signUp';
-import { userLoggedIn, userLogout } from './actions/Index';
+import { userLoggedIn } from './actions/Index';
 
 const App = ({
-  user, userLoggedIn, userLogout,
+  userLoggedIn,
 }) => {
   const redirectTo = path => (
     <Redirect push to={{ pathname: path }} />
@@ -31,16 +31,6 @@ const App = ({
   /* eslint-disable react/jsx-props-no-spreading */
   return (
     <div className="App">
-      <header className="appHeader">
-        <div className="font-header">Calorie Track.it</div>
-        <div className="capitalize">
-          <span>Hi </span>
-          {user.username}
-          <button title="logout" className="bareBtn" type="button" onClick={userLogout}>
-            <i className="fas fa-sign-out-alt" />
-          </button>
-        </div>
-      </header>
       <main className="height-main-hidden">
         <Switch>
           <Route exact path="/register" component={signUp} />
@@ -55,7 +45,6 @@ const App = ({
       </main>
     </div>
   );
-  /* eslint-enable react/jsx-props-no-spreading */
 };
 
 App.defaultProps = {
@@ -63,10 +52,7 @@ App.defaultProps = {
 };
 App.propTypes = {
   match: PropTypes.instanceOf(Object),
-  user: PropTypes.instanceOf(Object).isRequired,
-  modal: PropTypes.instanceOf(Object).isRequired,
   userLoggedIn: PropTypes.func.isRequired,
-  userLogout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -76,9 +62,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   userLoggedIn: () => {
     dispatch(userLoggedIn());
-  },
-  userLogout: () => {
-    dispatch(userLogout());
   },
 });
 
