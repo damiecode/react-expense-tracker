@@ -17,7 +17,7 @@ const Header = ({ userLogout }) => {
           <button
             onClick={userLogout}
             className="button button--link"
-            type="button"
+            type="submit"
           >
             Logout
           </button>

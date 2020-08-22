@@ -17,7 +17,7 @@ const EditExpensePage = ({ expense }) => (
       />
       <button
         className="button"
-        type="button"
+        type="submit"
       >
         Remove Expense
       </button>
