@@ -88,7 +88,7 @@ class ExpenseForm extends Component {
           isOutsideRange={() => false}
         />
         <div>
-          <button className="button" type="button">Save expense</button>
+          <button className="button" type="submit">Save expense</button>
         </div>
       </form>
     );

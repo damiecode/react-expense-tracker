@@ -81,6 +81,7 @@ class Login extends Component {
                     value={loginCreds}
                     onChange={this.handleChange}
                     minLength="3"
+                    className="input100"
                   />
                   <span className="focus-input100" />
                   <span className="symbol-input100">
@@ -94,6 +95,7 @@ class Login extends Component {
                     name="password"
                     value={password}
                     onChange={this.handleChange}
+                    className="input100"
                   />
                   <span className="focus-input100" />
                   <span className="symbol-input100">

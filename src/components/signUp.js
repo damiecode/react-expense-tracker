@@ -78,6 +78,7 @@ class Signup extends Component {
                     name="username"
                     value={username}
                     onChange={this.handleChange}
+                    className="input100"
                     required
                   />
                   <span className="focus-input100" />
@@ -92,6 +93,7 @@ class Signup extends Component {
                     name="email"
                     value={email}
                     onChange={this.handleChange}
+                    className="input100"
                     required
                   />
                   <span className="focus-input100" />
@@ -106,6 +108,7 @@ class Signup extends Component {
                     name="password"
                     value={password}
                     onChange={this.handleChange}
+                    className="input100"
                     required
                   />
                   <span className="focus-input100" />
@@ -120,6 +123,7 @@ class Signup extends Component {
                     name="password_confirmation"
                     value={password_confirmation}
                     onChange={this.handleChange}
+                    className="input100"
                     required
                   />
                   <span className="focus-input100" />
