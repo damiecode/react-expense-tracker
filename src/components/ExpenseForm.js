@@ -1,8 +1,12 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { SingleDatePicker } from 'react-dates';
+import ShowErrors from './errors';
+import Loading from './loading';
+import { addExpense } from '../actions/Index';
 import 'react-dates/lib/css/_datepicker.css';
 import '../styles/form.css';
 
@@ -14,12 +18,12 @@ class ExpenseForm extends Component {
       amount: props.expense ? (props.expense.amount).toString() : '',
       createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
       calendarFocus: false,
-      error: '',
     };
     this.onNameChange = this.onNameChange.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.selectForm = React.createRef();
   }
 
   onNameChange(e) {
@@ -35,19 +39,17 @@ class ExpenseForm extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault();
+    const { addExpense } = this.props;
     const { name, amount, createdAt } = this.state;
 
-    if (!name || !amount) {
-      this.setState(() => ({ error: 'Please provide name and amount' }));
-    } else {
-      this.setState(() => ({ error: '' }));
-      this.props.onSubmit({
-        name,
-        amount: parseFloat(amount, 10),
-        createdAt: createdAt.valueOf(),
-      });
-    }
+    const expense = {
+      name,
+      amount: parseFloat(amount, 10),
+      createdAt: createdAt.valueOf(),
+    };
+    e.preventDefault();
+    addExpense(expense);
+    this.reset();
   }
 
   onDateChange(createdAt) {
@@ -58,46 +60,81 @@ class ExpenseForm extends Component {
     this.setState(() => ({ calendarFocus: focused }));
   }
 
+  reset() {
+    this.selectForm.current.scrollIntoView({ behaviour: 'smooth' });
+    this.setState({
+      name: '',
+      amount: '',
+      createdAt: '',
+    });
+  }
+
   render() {
     const {
-      name, amount, createdAt, calendarFocus, error,
+      name, amount, createdAt, calendarFocus,
     } = this.state;
-    return (
-      <form className="form" onSubmit={this.onSubmit}>
-        {error && <p className="form__error">{error}</p>}
-        <input
-          type="text"
-          className="text-input"
-          placeholder="Name"
-          value={name}
-          onChange={this.onNameChange}
-        />
-        <input
-          type="number"
-          className="text-input"
-          placeholder="Amount"
-          value={amount}
-          onChange={this.onAmountChange}
-        />
-        <SingleDatePicker
-          date={createdAt}
-          onDateChange={this.onDateChange}
-          focused={calendarFocus}
-          onFocusChange={this.onFocusChange}
-          numberOfMonths={1}
-          isOutsideRange={() => false}
-        />
-        <div>
-          <button className="button" type="submit">Save expense</button>
-        </div>
-      </form>
-    );
+    const { status } = this.props;
+    const { isLoading, errors, form } = status;
+
+    const renderMain = isLoading
+      ? (
+        <Loading />
+      )
+      : (
+        <form className="form" ref={this.selectForm} onSubmit={this.onSubmit}>
+          {form === 'expenseForm' && <ShowErrors errors={errors} />}
+          <input
+            type="text"
+            className="text-input"
+            placeholder="Name"
+            value={name}
+            onChange={this.onNameChange}
+          />
+          <input
+            type="number"
+            className="text-input"
+            placeholder="Amount"
+            value={amount}
+            onChange={this.onAmountChange}
+          />
+          <SingleDatePicker
+            date={createdAt}
+            onDateChange={this.onDateChange}
+            focused={calendarFocus}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1}
+            isOutsideRange={() => false}
+          />
+          <div>
+            <button className="button" type="submit">Save expense</button>
+          </div>
+        </form>
+      );
+
+    const { user, redirectTo } = this.props;
+    /* eslint-disable camelcase */
+    const { logged_in } = user;
+    return logged_in ? renderMain : redirectTo('/login');
   }
 }
 
 ExpenseForm.propTypes = {
+  user: PropTypes.instanceOf(Object).isRequired,
   expense: PropTypes.instanceOf(Object).isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  status: PropTypes.instanceOf(Object).isRequired,
+  addExpense: PropTypes.func.isRequired,
+  redirectTo: PropTypes.func.isRequired,
 };
 
-export default ExpenseForm;
+const mapStateToProps = state => ({
+  user: state.user,
+  status: state.status,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addExpense: expense => {
+    dispatch(addExpense(expense));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
