@@ -4,10 +4,9 @@ import Loader from 'react-loader-spinner';
 const Loading = () => (
   <Loader
     type="Puff"
-    color="#00BFFF"
-    height={100}
-    width={100}
-    timeout={3000}
+    color="#c850c0"
+    height={500}
+    width={300}
   />
 );
 
