@@ -6,6 +6,7 @@ import expensesReducer from '../reducers/expenses';
 import filtersReducer from '../reducers/filters';
 import userReducer from '../reducers/user';
 import loaderReducer from '../reducers/loader';
+import selectedExpenseReducer from '../reducers/expense';
 
 const initialState = {
   user: { username: '', email: '', logged_in: false },
@@ -26,6 +27,7 @@ export default () => {
       filters: filtersReducer,
       user: userReducer,
       status: loaderReducer,
+      selectedExpense: selectedExpenseReducer,
     }),
     initialState,
     composeEnhancers(applyMiddleware(thunk)),

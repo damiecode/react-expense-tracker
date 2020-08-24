@@ -1,29 +1,12 @@
-const expensesReducerDefaultState = [];
+import { FETCH_EXPENSELIST } from '../actions/Index';
 
-const expensesReducer = (state = expensesReducerDefaultState, action) => {
+const expensessReducer = (state = { }, action) => {
   switch (action.type) {
-    case 'ADD_EXPENSE':
-      return [
-        ...state,
-        action.expense,
-      ];
-    case 'REMOVE_EXPENSE':
-      return state.filter(({ id }) => id !== action.id);
-    case 'EDIT_EXPENSE':
-      return state.map(expense => {
-        if (expense.id === action.id) {
-          return {
-            ...expense,
-            ...action.updates,
-          };
-        }
-        return expense;
-      });
-    case 'SET_EXPENSE':
-      return action.expenses;
+    case FETCH_EXPENSELIST:
+      return [...action.response];
     default:
       return state;
   }
 };
 
-export default expensesReducer;
+export default expensessReducer;
