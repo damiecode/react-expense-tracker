@@ -48,8 +48,8 @@ ExpenseList.propTypes = {
   redirectTo: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ state }) => ({
-  expenses: viewExpenses(state.expenses, state.filters),
+const mapStateToProps = ({ state, expenses, filters }) => ({
+  expenses: viewExpenses(expenses, filters),
   status: state.status,
   user: state.user,
 });
