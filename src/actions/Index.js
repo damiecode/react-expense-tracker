@@ -145,6 +145,7 @@ const fetchExpense = expenseID => dispatch => {
       dispatch(fetchRequestFailure(errorMsg));
     });
 };
+
 // Expense requests
 const addExpense = expense => dispatch => {
   dispatch(fetchRequest());
@@ -159,6 +160,7 @@ const addExpense = expense => dispatch => {
       dispatch(fetchRequestFailure(errorMsg, 'expenseForm'));
     });
 };
+
 const updateExpense = (expenseID, expense) => dispatch => {
   dispatch(fetchRequest());
   axios.patch(`${URL}expenses/${expenseID}`, { expense }, { withCredentials: true })
@@ -171,6 +173,7 @@ const updateExpense = (expenseID, expense) => dispatch => {
       dispatch(fetchRequestFailure(errorMsg, 'modalForm'));
     });
 };
+
 const removeExpense = expense => dispatch => {
   dispatch(fetchRequest());
   axios.delete(`${URL}expenses/${expense.id}`, { withCredentials: true })

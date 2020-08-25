@@ -9,7 +9,7 @@ const ExpenseDashboardPage = () => (
     <Header />
     <ExpensesSummary />
     <ExpenseListFilters />
-    <ExpenseList />
+    {/* <ExpenseList /> */}
   </div>
 );
 

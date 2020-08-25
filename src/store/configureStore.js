@@ -12,7 +12,7 @@ const initialState = {
   user: { username: '', email: '', logged_in: false },
   expenses: [
     {
-      name: '', amount: '', createdAt: 0,
+      name: '', amount: '', createdAt: '',
     },
   ],
   status: { isLoading: false, errors: [] },

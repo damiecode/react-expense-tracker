@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -14,9 +15,9 @@ class ExpenseForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: props.expense ? props.expense.name : '',
-      amount: props.expense ? (props.expense.amount).toString() : '',
-      createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+      name: '',
+      amount: '',
+      createdAt: moment(),
       calendarFocus: false,
     };
     this.onNameChange = this.onNameChange.bind(this);
@@ -112,7 +113,6 @@ class ExpenseForm extends Component {
       );
 
     const { user, redirectTo } = this.props;
-    /* eslint-disable camelcase */
     const { logged_in } = user;
     return logged_in ? renderMain : redirectTo('/login');
   }
@@ -120,7 +120,6 @@ class ExpenseForm extends Component {
 
 ExpenseForm.propTypes = {
   user: PropTypes.instanceOf(Object).isRequired,
-  expense: PropTypes.instanceOf(Object).isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
   addExpense: PropTypes.func.isRequired,
   redirectTo: PropTypes.func.isRequired,
