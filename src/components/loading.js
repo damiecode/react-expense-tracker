@@ -8,6 +8,7 @@ const Loading = () => (
     height={500}
     width={300}
     timeout={3000}
+    className="text-center"
   />
 );
 
