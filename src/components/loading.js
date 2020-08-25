@@ -7,6 +7,7 @@ const Loading = () => (
     color="#c850c0"
     height={500}
     width={300}
+    timeout={3000}
   />
 );
 
