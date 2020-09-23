@@ -5,6 +5,7 @@ import {
   Switch,
   Route,
   Redirect,
+  Link,
 } from 'react-router-dom';
 
 import './styles/index.css';
@@ -15,10 +16,11 @@ import NotFoundPage from './components/NotFoundPage';
 import LoginPage from './components/LoginPage';
 import ChartPage from './components/ChartPage';
 import signUp from './components/signUp';
-import { userLoggedIn } from './actions/Index';
+import { userLoggedIn, userLogout } from './actions/Index';
+import Header from './components/Header';
 
 const App = ({
-  userLoggedIn,
+  userLoggedIn, userLogout,
 }) => {
   const redirectTo = path => (
     <Redirect push to={{ pathname: path }} />
@@ -40,6 +42,7 @@ const App = ({
           <Route exact path="/create" render={props => <AddExpensePage {...props} redirectTo={redirectTo} />} />
           <Route exact path="/edit/:id" render={props => <EditExpensePage {...props} redirectTo={redirectTo} />} />
           <Route exact path="/stat" render={() => <ChartPage redirectTo={redirectTo} />} />
+          <Route exact path="/logout" render={() => <Header userLogout={userLogout} redirectTo={redirectTo} />} />
           <Route component={NotFoundPage} />
         </Switch>
       </main>
@@ -53,6 +56,7 @@ App.defaultProps = {
 App.propTypes = {
   match: PropTypes.instanceOf(Object),
   userLoggedIn: PropTypes.func.isRequired,
+  userLogout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -62,6 +66,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   userLoggedIn: () => {
     dispatch(userLoggedIn());
+  },
+  userLogout: () => {
+    dispatch(userLogout());
   },
 });
 

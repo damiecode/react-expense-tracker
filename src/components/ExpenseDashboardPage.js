@@ -1,15 +1,15 @@
 import React from 'react';
-import Header from './Header';
 import ExpenseList from './ExpenseList';
 import ExpenseListFilters from './ExpenseListFilters';
 import ExpensesSummary from './ExpensesSummary';
+import Header from './Header';
 
 const ExpenseDashboardPage = () => (
   <div>
     <Header />
     <ExpensesSummary />
     <ExpenseListFilters />
-    {/* <ExpenseList /> */}
+    <ExpenseList />
   </div>
 );
 

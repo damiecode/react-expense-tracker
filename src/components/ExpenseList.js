@@ -9,7 +9,7 @@ import viewExpenses from '../selectors/expenses';
 import Loading from './loading';
 import '../styles/visibility.css';
 import '../styles/list.css';
-import { fetchExpenses } from '../actions/Index';
+import { fetchExpenses, removeExpense } from '../actions/Index';
 
 const ExpenseList = ({
   status, user, expenses, fetchExpenses, redirectTo,
@@ -32,7 +32,14 @@ const ExpenseList = ({
         </div>
         { expenses.length === 0 && <p>No expense!</p> }
         {
-        expenses.map(expense => <ExpenseListItem key={expense.id} {...expense} />)
+        expenses.map(expense => (
+          <ExpenseListItem
+            expense={expense}
+            key={expense.id}
+            {...expense}
+            removeExpense={removeExpense}
+          />
+        ))
       }
       </div>
     );
@@ -48,20 +55,19 @@ ExpenseList.propTypes = {
   redirectTo: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
-  const { expenses, filters } = state;
-  return (
-    {
-      expenses: viewExpenses(expenses, filters),
-      status: state.status,
-      user: state.user,
-    }
-  );
-};
+const mapStateToProps = state => ({
+  // const { expenses, filters } = state;
+  expenses: state.expenses,
+  status: state.status,
+  user: state.user,
+});
 
 const mapDispatchToProps = dispatch => ({
   fetchExpenses: () => {
     dispatch(fetchExpenses());
+  },
+  removeExpense: expense => {
+    dispatch(removeExpense(expense));
   },
 });
 
