@@ -1,68 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React-Expense-Tracker
+### Version 1.0 Beta
+The Front-end for an expense tracking mobile app that connects with a RESTful API through HTTP Requests
 
-## Available Scripts
+Web-based Mobile Application using a [custom built API](https://github.com/damiecode/TrackingApp-API) to gather and manipulate information related to various type of expenses.
 
-In the project directory, you can run:
+## Features
+### Expense Tracker (expenses, savings, categories)
+- After Logging in a User is able to add various expenses to their tracker. 
+- The expenses added to the tracker will be saved and stored in the back-end server's database.  
+- The User is then able to track the number of expenses and amount they've used.
+### Track expenses on a monthly basis
+- The expenses are stored and sorted on a monthly basis.
+### Expenses Charts
+- A User can view expenses as a chart.
 
-### `yarn start`
+<!-- ![screenshot](./screenshot.jpg)
+![screenshot](./screenshot2.jpg) -->
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## [Live Link](https://react-expense-trackers.netlify.app/)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Built With
 
-### `yarn test`
+- HTML, CSS
+- JavaScript
+- React.js
+- React-Router
+- Redux.js
+- Redux-Thunk
+- NPM Webpack
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup for Local use
 
-### `yarn build`
+### Clone Repository
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Grab a clone of [this repository](https://github.com/damiecode/react-expense-tracker) from Github
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Setting up Front-End to Back-End connection
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+After you have successfully setup your back-end, you will need to change the URL the front-end connects to.
 
-### `yarn eject`
+1. Navigate to your local directory of this cloned repository
+2. Navigate to the src/redux/actions folder and open the index.js file
+3. On line 3 where you would see const ```const URL = 'trackingapp-api.herokuapp.com/';```, replace ```'trackingapp-api.herokuapp.com/'``` with the url of your back-end server that you would have setup.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Install Dependencies
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+$ npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Run Application
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+$ npm run server
+```
 
-## Learn More
+### Running Tests
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+$ npm run test
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Running Linters
 
-### Code Splitting
+### ESLint
+- Run `npx eslint .` on the root of your project directory.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Stylelint
+- Run `npx stylelint "**/*.{css,scss}"` on the root of your project directory.
 
-### Analyzing the Bundle Size
+### Future Changes
+- Major reboot for desktop design
+- Add more information in the chart component page
+- Add more functionality to the buttons in the more component page
+(Help document, Detailed Profile Page, Settings Menu, Ability to set a Goal)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Author
 
-### Making a Progressive Web App
+👤 **Damilola Ale**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- Github: [@damiecode](https://github.com/damiecode)
+- Twitter: [@iamlildamski](https://twitter.com/iamlildamski)
+- Linkedin: [Damilola Ale](https://www.linkedin.com/in/damiecode/)
 
-### Advanced Configuration
+## 🤝 Contributing
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Contributions, issues and feature requests are welcome!
 
-### Deployment
+Feel free to check the [issues page](issues/).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## Show your support
 
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Give a ⭐️ if you like this project!
